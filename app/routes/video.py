@@ -36,8 +36,7 @@ async def genrate_upload_url(video: Video, request: Request):
     key = f"{path}{uuid4()}.{content_types[type]}"
     url = await bucket.object(key=key, method="put_object")
 
-    print("___________________")
-    print({**video.model_dump()})
+    
 
     insert_data = {
         **video.model_dump(),
@@ -57,8 +56,6 @@ async def genrate_upload_url(video: Video, request: Request):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server erorr",
         )
-
-    insert_data.pop("_id")
     insert_data["userId"] = str(insert_data["userId"])
     insert_data.update({"url": url})
     
