@@ -17,7 +17,7 @@ from ..db import userCollection
 router = APIRouter(prefix="/user", tags=["user"])
 
 
-@router.post("/register", response_model=User, response_model_exclude={"password"})
+@router.post("/register", response_model=User, response_model_exclude={"password"},tags=["auth"])
 async def register_user(user: User) -> User:
     user.password = get_password_hash(user.password)
     print(user.password)
@@ -29,7 +29,7 @@ async def register_user(user: User) -> User:
     return user
 
 
-@router.post("/token")
+@router.post("/token",tags=['auth'])
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ) -> Token:

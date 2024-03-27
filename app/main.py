@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app=FastAPI(
-    title="VideoText App"
+    title="VideoText App",
+    docs_url="/"
 )
 
 app.include_router(

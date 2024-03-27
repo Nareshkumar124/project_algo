@@ -6,6 +6,12 @@ class Video(BaseModel):
     contenType:str
 
 class VideoDb(Video):
+    id:str
     transcripte:str|None=None
     subtittle:list[str]|None=None
     userId:str
+    key:str
+    path:str
+    uploaded:bool
+    processing:bool
+    duration:int

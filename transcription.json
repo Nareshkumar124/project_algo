@@ -1,0 +1,40 @@
+{
+	"TranscriptionJob": {
+		"TranscriptionJobName": "a7acc245-1422-47a9-a101-3462853a92db",
+		"TranscriptionJobStatus": "COMPLETED",
+		"LanguageCode": "en-US",
+		"MediaSampleRateHertz": 44100,
+		"MediaFormat": "mp4",
+		"Media": {
+			"MediaFileUri": "s3://videotextalgo/Y2meta.app-Journey to become a computer programmer - My story-(144p).mp4"
+		},
+		"Transcript": {
+			"TranscriptFileUri": "https://s3.ap-south-1.amazonaws.com/videotextalgo/my-output-files/a7acc245-1422-47a9-a101-3462853a92db.json"
+		},
+		"StartTime": "time",
+		"CreationTime": "time",
+		"CompletionTime": "time",
+		"Settings": {
+			"ChannelIdentification": false,
+			"ShowAlternatives": false
+		},
+		"Subtitles": {
+			"Formats": ["vtt", "srt"],
+			"SubtitleFileUris": [
+				"https://s3.ap-south-1.amazonaws.com/videotextalgo/my-output-files/a7acc245-1422-47a9-a101-3462853a92db.srt",
+				"https://s3.ap-south-1.amazonaws.com/videotextalgo/my-output-files/a7acc245-1422-47a9-a101-3462853a92db.vtt"
+			]
+		}
+	},
+	"ResponseMetadata": {
+		"RequestId": "b605145c-ab4b-428d-96f6-bcbfed45e77d",
+		"HTTPStatusCode": 200,
+		"HTTPHeaders": {
+			"x-amzn-requestid": "b605145c-ab4b-428d-96f6-bcbfed45e77d",
+			"content-type": "application/x-amz-json-1.1",
+			"content-length": "896",
+			"date": "Tue, 26 Mar 2024 10:28:12 GMT"
+		},
+		"RetryAttempts": 0
+	}
+}

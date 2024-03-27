@@ -15,9 +15,11 @@ class Transcriber:
         )
 
     async def transcribeFile(self, jobName, key, outPutKey):
-        fileUri: str=f"s3://{key}"
+        print("___________________________")
+        fileUri: str=f"s3://{getenv("AWS_BUCKET_NAME")}/{key}"
+        print("File uri: ",fileUri)
         self.client.start_transcription_job(
-            TranscriptionJobName=jobName,
+            TranscriptionJobName=str(jobName),
             Media={"MediaFileUri": fileUri},
             OutputBucketName=getenv("AWS_BUCKET_NAME"),
             OutputKey=outPutKey,
@@ -27,12 +29,30 @@ class Transcriber:
         while True:
             status = self.client.get_transcription_job(TranscriptionJobName=jobName)
             if status["TranscriptionJob"]["TranscriptionJobStatus"] =="COMPLETED":
-                return status
+                return self.getDataFromStatus(status=status)
             elif status["TranscriptionJob"]["TranscriptionJobStatus"] == "FAILED":
                 return None
 
             print("Not ready yet...")
             await sleep(5)
 
+    def getDataFromStatus(self,status:dict):
 
+        bucketName = getenv("AWS_BUCKET_NAME")
 
+        subtitles:list[str] = status["TranscriptionJob"]["Subtitles"]["SubtitleFileUris"]
+
+        subtitlesWithKeys=[]
+        for title in subtitles:
+            subtitlesWithKeys.append(title.split(f"{bucketName}/")[-1])
+
+        # transcripte
+
+        transcript:str = status["TranscriptionJob"]["Transcript"]["TranscriptFileUri"]
+        transcript = transcript.split(f"{bucketName}/")[-1]
+        
+        
+        return {
+            "subtitle":subtitlesWithKeys,
+            "transcript":transcript
+        }
