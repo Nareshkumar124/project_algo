@@ -17,11 +17,17 @@ from ..db import userCollection
 router = APIRouter(prefix="/user", tags=["user"])
 
 
+
+# Under testing
 @router.post("/register", response_model=User, response_model_exclude={"password"},tags=["auth"])
 async def register_user(user: User) -> User:
     user.password = get_password_hash(user.password)
-    print(user.password)
-    print(user)
+    
+    # check user is exit or not
+    check_user=userCollection.find_one({"username":user.username})
+    if check_user:
+        raise HTTPException(status_code=400,detail="user already exist.")
+    
     user_in_db = userCollection.insert_one(user.model_dump())
     print(user_in_db)
     if not user_in_db:
@@ -39,7 +45,7 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@router.get("/me", response_model=TokenData)
+@router.post("/me", response_model=TokenData,tags=["auth"])
 async def get_user(user: Annotated[dict, Depends(get_current_user)]):
     print(TokenData(**user))
     return user
