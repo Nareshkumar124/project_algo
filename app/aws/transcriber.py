@@ -3,7 +3,6 @@ from asyncio import sleep
 from uuid import uuid4
 from os import getenv
 
-
 class Transcriber:
 
     def __init__(self) -> None:
@@ -16,7 +15,7 @@ class Transcriber:
 
     async def transcribeFile(self, jobName, key, outPutKey):
         print("___________________________")
-        fileUri: str=f"s3://{getenv("AWS_BUCKET_NAME")}/{key}"
+        fileUri: str="s3://"+getenv("AWS_BUCKET_NAME")+"/"+key
         print("File uri: ",fileUri)
         self.client.start_transcription_job(
             TranscriptionJobName=str(jobName),

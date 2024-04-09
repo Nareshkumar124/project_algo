@@ -13,7 +13,6 @@ from ..auth import (
 from ..modal import UserDb, User,TokenData
 from ..db import userCollection
 
-
 router = APIRouter(prefix="/user", tags=["user"])
 
 
