@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
-from ..modal import Token
+from ..model import Token
 from datetime import timedelta
 from os import getenv
 from ..auth import (
@@ -10,7 +10,7 @@ from ..auth import (
     get_current_user,
     get_password_hash,
 )
-from ..modal import UserDb, User,TokenData
+from ..model import UserDb, User,TokenData
 from ..db import userCollection
 
 router = APIRouter(prefix="/user", tags=["user"])

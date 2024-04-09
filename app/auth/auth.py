@@ -7,7 +7,7 @@ from ..schema import userEntity
 from fastapi import HTTPException, status, Depends,Request
 from fastapi.security import OAuth2PasswordBearer
 from typing import Annotated
-from ..modal import TokenData
+from ..model import TokenData
 
 # context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

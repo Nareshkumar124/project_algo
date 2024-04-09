@@ -10,7 +10,7 @@ from fastapi import (
 )
 from ..auth import get_current_user
 from ..schema import videoEntity
-from ..modal import Video, VideoDb
+from ..model import Video, VideoDb
 from ..aws import BucketWrapper, Transcriber
 from ..db import videoCollection
 from uuid import uuid4
