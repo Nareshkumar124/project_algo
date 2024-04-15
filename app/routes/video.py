@@ -199,3 +199,11 @@ async def delete_folder(folder_path):
     }
 
 
+@router.post("/in-process")
+async def in_process(request:Request):
+    res = videoCollection.find({"userId": ObjectId(request.state.user.get("id")),"processing":False})
+
+    videosInDict = [videoEntity(video) for video in res]
+    return videosInDict
+
+
