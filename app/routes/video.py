@@ -187,11 +187,18 @@ async def delete_video(key: Annotated[str, Path()], request: Request):
     }
 
 @router.delete("/delete-folder/{folder_path:path}")
-async def delete_folder(folder_path):
+async def delete_folder(folder_path=None):
     
+    if not folder_path:
+        raise HTTPException("400","Folder path requried.")
     bucket=BucketWrapper()
+
+    res=videoCollection.delete_one({"path":folder_path})
     
-    res=await bucket.delete_folder(folder_path=folder_path)
+    if res.acknowledged:
+        res=await bucket.delete_folder(folder_path=folder_path)
+    else:
+        raise HTTPException(500,"Internal server error.")
 
     return {
         "status":res,
